@@ -67,8 +67,12 @@ const sites: SiteModule = [
     'c.pc.qq.com',
     {
       autojump: {
-        validator: ({ pathname }) => pathname === '/middlem.html',
-        queryName: 'pfurl',
+        validator: ({ pathname }) => pathname === '/middlem.html' || pathname === '/ios.html',
+        getOriginalUrl() {
+          const { search } = location
+          const urlParams = new URLSearchParams(search)
+          return urlParams.get('pfurl') || urlParams.get('url')
+        },
       },
     },
   ],
